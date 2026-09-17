@@ -1,0 +1,92 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Table to CSV</title>
+<style>
+  :root { color-scheme: light dark; --bg:#fff; --fg:#1a1a1a; --muted:#6b7280;
+          --line:#e5e7eb; --accent:#059669; --warn:#b45309; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#1c1c1e; --fg:#f2f2f7; --muted:#9ca3af; --line:#38383a; --accent:#34d399; }
+  }
+  * { box-sizing: border-box; }
+  body { width: 340px; margin: 0; padding: 14px; background: var(--bg); color: var(--fg);
+         font: 13px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
+  h1 { margin: 0 0 4px; font-size: 14px; font-weight: 600; }
+  .sub { color: var(--muted); font-size: 12px; margin-bottom: 10px; }
+  .tables { max-height: 190px; overflow-y: auto; border: 1px solid var(--line);
+            border-radius: 7px; margin-bottom: 10px; }
+  .t { padding: 8px 10px; border-bottom: 1px solid var(--line); cursor: pointer; }
+  .t:last-child { border-bottom: 0; }
+  .t.sel { background: color-mix(in srgb, var(--accent) 14%, transparent); }
+  .t .name { font-weight: 600; }
+  .t .meta { color: var(--muted); font-size: 11px; }
+  .t.locked { opacity: .5; cursor: not-allowed; }
+  .row { display: flex; gap: 6px; margin-bottom: 8px; }
+  select, button { padding: 8px 10px; border-radius: 7px; font-size: 13px; }
+  select { flex: 1; border: 1px solid var(--line); background: var(--bg); color: var(--fg); }
+  button { flex: 1; border: 0; background: var(--accent); color: #fff; font-weight: 600; cursor: pointer; }
+  button.secondary { background: transparent; color: var(--fg); border: 1px solid var(--line); }
+  button:disabled { opacity: .55; cursor: default; }
+  label { display: flex; align-items: center; gap: 7px; padding: 2px 0; font-size: 12px; cursor: pointer; }
+  .status { min-height: 17px; font-size: 12px; color: var(--muted); margin-top: 6px; }
+  .pro { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 12px; }
+  .pro a { color: var(--accent); }
+  .pro input { width: 100%; padding: 6px 8px; margin: 6px 0; border: 1px solid var(--line);
+               border-radius: 6px; background: var(--bg); color: var(--fg); font-size: 12px; }
+  .badge { float: right; font-size: 11px; color: var(--accent); font-weight: 600; }
+</style>
+
+<h1>Table to CSV <span class="badge" id="badge"></span></h1>
+<div class="sub" id="sub">Scanning…</div>
+
+<!-- Shown only when the page has no tables: explain rather than present options -->
+<!-- Shown on apps whose grids are not HTML tables -->
+<div id="app" style="display:none">
+  <p style="margin:8px 0 10px; color:var(--muted)" id="appNote"></p>
+  <button id="appExport" style="width:100%; display:none">Download the whole sheet</button>
+</div>
+
+<div id="empty" style="display:none">
+  <p style="margin:8px 0 10px; color:var(--muted)">
+    This extension exports <strong>real HTML tables</strong> — the kind where you
+    can select one cell with your mouse.
+  </p>
+  <p style="margin:0 0 10px; color:var(--muted)">
+    A table that is a screenshot, or drawn with layout elements, has no data to
+    read. Nothing can export those.
+  </p>
+  <button id="example" style="width:100%">Open an example page</button>
+</div>
+
+<div id="work">
+<div class="tables" id="list"></div>
+
+<div class="row">
+  <select id="format">
+    <option value="csv">CSV</option>
+    <option value="tsv">TSV</option>
+    <option value="json">JSON</option>
+    <option value="markdown">Markdown</option>
+  </select>
+  <button id="download">Download</button>
+</div>
+<div class="row">
+  <button id="copy" class="secondary">Copy to clipboard</button>
+  <button id="all" class="secondary">All tables</button>
+</div>
+
+<label><input type="checkbox" id="cleanNumbers" checked> Clean numbers for spreadsheets</label>
+<label><input type="checkbox" id="bom" checked> Excel-safe encoding (UTF-8 BOM)</label>
+
+<div class="status" id="status"></div>
+</div>
+
+<div class="pro" id="proBox">
+  <strong>Pro</strong> — every table at once, TSV, JSON and Markdown.
+  <input id="key" placeholder="Paste your licence key">
+  <button id="activate" class="secondary" style="width:100%">Activate</button>
+  <div style="margin-top:6px"><a id="buy" href="#" target="_blank">Get a licence</a></div>
+</div>
+
+<script src="apps.js"></script>
+<script src="licence.js"></script>
+<script src="popup.js"></script>
