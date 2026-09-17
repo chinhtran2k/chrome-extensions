@@ -84,8 +84,8 @@ Found a page that converts badly? Open an issue with the URL — that is the mos
 useful thing you can send.
 
 - **Issues:** https://github.com/chinhtran2k/chrome-extensions/issues
-- **LinkedIn:** LINKEDIN_URL_HERE
-- **Telegram:** TELEGRAM_URL_HERE
+- **LinkedIn:** https://www.linkedin.com/in/tr%E1%BA%A7n-ch%C3%ADnh-43b905289/
+- **Telegram:** https://t.me/nobin_2k
 
 ## Licence
 
