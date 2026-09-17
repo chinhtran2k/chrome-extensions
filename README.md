@@ -87,6 +87,9 @@ useful thing you can send.
 - **LinkedIn:** https://www.linkedin.com/in/tr%E1%BA%A7n-ch%C3%ADnh-43b905289/
 - **Telegram:** https://t.me/nobin_2k
 
-## Licence
+## Copyright
 
-MIT
+Copyright (c) 2026 Trần Trọng Chính. All rights reserved.
+
+The source is public so that the privacy claims above can be verified rather
+than taken on trust. It is not licensed for reuse — see [COPYRIGHT.md](COPYRIGHT.md).
